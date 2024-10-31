@@ -54,9 +54,10 @@ The application provides three main views:
    - Validation rules maintained
 
 ## API Integration
-The application integrates with two FHIR servers:
+The application integrates with three FHIR servers:
 - Medblocks: `https://fhir-bootcamp.medblocks.com/fhir`
 - HAPI FHIR: `https://hapi.fhir.org/baseR4`
+- Kodjin: `https://demo.kodjin.com/fhir/` (Note: Total patient count might be limited)
 
 ## License
 Not copyrighted 2024. All rights are yours.
