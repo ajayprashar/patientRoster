@@ -28,8 +28,8 @@ onMount(() => {
 const fetchPatients = async (page: number) => {
   const params: Record<string, any> = {
     _sort: '-_lastUpdated',
-    _count: 20,
-    _offset: page * 20,
+    _count: 15,
+    _offset: page * 15,
     _total: 'accurate'
   };
 
@@ -220,6 +220,7 @@ const handlePageChange = async (newPage: number) => {
         <thead>
           <tr class="text-left border-b-2 border-[#2B57AD]/30">
             <th class="p-2 text-[#2B57AD] font-semibold">ID</th>
+            <th class="p-2 w-10"></th>
             <th class="p-2 text-[#2B57AD] font-semibold">Name</th>
             <th class="p-2 text-[#2B57AD] font-semibold">Gender</th>
             <th class="p-2 text-[#2B57AD] font-semibold">Birth Date</th>
@@ -229,7 +230,17 @@ const handlePageChange = async (newPage: number) => {
           {#each patients.entry as patient}
             <tr class="border-b border-[#2B57AD]/10 hover:bg-[#2B57AD]/5 transition-colors">
               <td class="p-2">{patient?.resource?.id}</td>
-              <td class="p-2">{formatName(patient?.resource)}</td>
+              <td class="p-2 pr-0">
+                <button 
+                  class="text-[#2B57AD] hover:text-[#2B57AD]/80 transition-colors"
+                  on:click={() => navigate(`/patient/edit/${patient.resource.id}`)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-8.793 8.793-3.536 1.414 1.414-3.536 8.793-8.793z" />
+                  </svg>
+                </button>
+              </td>
+              <td class="p-2 pl-0">{formatName(patient?.resource)}</td>
               <td class="p-2">{formatGender(patient?.resource?.gender)}</td>
               <td class="p-2">{formatDate(patient?.resource?.birthDate)}</td>
             </tr>
@@ -251,11 +262,11 @@ const handlePageChange = async (newPage: number) => {
       <span class="mx-4 text-[#2B57AD] font-medium">Page {page + 1}</span>
       <button 
         class={clsx("p-2 px-4 text-white rounded transition-colors", {
-          'bg-[#2B57AD] hover:bg-[#2B57AD]/90': (page + 1) * 20 < totalPatients,
-          'bg-gray-300': (page + 1) * 20 >= totalPatients
+          'bg-[#2B57AD] hover:bg-[#2B57AD]/90': (page + 1) * 15 < totalPatients,
+          'bg-gray-300': (page + 1) * 15 >= totalPatients
         })} 
         on:click={() => handlePageChange(page + 1)} 
-        disabled={(page + 1) * 20 >= totalPatients}
+        disabled={(page + 1) * 15 >= totalPatients}
       >
         Next
       </button>
@@ -263,5 +274,10 @@ const handlePageChange = async (newPage: number) => {
     {#if error}
       <div class="text-[#B91F3B] mt-4 font-medium">{error}</div>
     {/if}
+    
+    <!-- Add copyright text -->
+    <div class="text-center text-[#2B57AD]/60 mt-8">
+      © Not Copyrighted 2024. All rights are yours.
+    </div>
   </div>
 </main>
