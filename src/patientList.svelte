@@ -134,34 +134,36 @@ const handlePageChange = async (newPage: number) => {
 
 <main>
   <div class="w-full my-10">
-    <div class="flex justify-between items-center">
-      <h1 class="text-2xl text-black dark:text-white font-semibold underline">PATIENT ROSTER</h1>
+    <hr class="border-[#2B57AD]/50 my-2">
+    <div class="flex justify-center items-center my-1">
+      <h1 class="text-2xl text-[#2B57AD] font-semibold">PATIENT ROSTER</h1>
     </div>
+    <hr class="border-[#2B57AD]/50 my-2">
     <div class="my-4 flex gap-4 items-end justify-between">
       <div class="flex gap-4 items-end">
         <div class="flex flex-col">
-          <label for="lastName" class="text-sm mb-1">Last Name</label>
+          <label for="lastName" class="text-sm mb-1 text-[#2B57AD] font-medium">Last Name</label>
           <input
             type="text"
             id="lastName"
             bind:value={searchLastName}
-            class="border p-2 rounded"
+            class="border-2 border-[#2B57AD]/20 p-2 rounded focus:border-[#2B57AD]/50 focus:outline-none"
             placeholder="Search by last name"
           />
         </div>
         
         <div class="flex flex-col">
-          <label for="birthDate" class="text-sm mb-1">Birth Date</label>
+          <label for="birthDate" class="text-sm mb-1 text-[#2B57AD] font-medium">Birth Date</label>
           <input
             type="date"
             id="birthDate"
             bind:value={searchBirthDate}
-            class="border p-2 rounded"
+            class="border-2 border-[#2B57AD]/20 p-2 rounded focus:border-[#2B57AD]/50 focus:outline-none"
           />
         </div>
         
         <button
-          class="bg-black text-white p-2 rounded"
+          class="bg-[#2B57AD] hover:bg-[#2B57AD]/90 text-white p-2 px-4 rounded transition-colors"
           on:click={handleSearch}
           disabled={isLoading}
         >
@@ -169,14 +171,14 @@ const handlePageChange = async (newPage: number) => {
         </button>
 
         <button
-          class="bg-gray-300 text-black p-2 rounded"
+          class="bg-[#F57B17] hover:bg-[#F57B17]/90 text-white p-2 px-4 rounded transition-colors"
           on:click={resetSearch}
         >
           Reset
         </button>
 
         <button 
-          class="bg-black text-white p-2 rounded"
+          class="bg-[#B91F3B] hover:bg-[#B91F3B]/90 text-white p-2 px-4 rounded transition-colors"
           on:click={() => navigate('/patient/create')}
         >
           CREATE PATIENT
@@ -184,7 +186,7 @@ const handlePageChange = async (newPage: number) => {
       </div>
 
       <div class="flex gap-4 items-center">
-        <span class="text-gray-600">Total Patients: {totalPatients}</span>
+        <span class="text-[#2B57AD] font-medium">Total Patients: {totalPatients}</span>
         <label class="flex items-center">
           <input
             type="radio"
@@ -192,9 +194,9 @@ const handlePageChange = async (newPage: number) => {
             value={FHIR_SERVERS.MEDBLOCKS}
             checked={selectedServer === FHIR_SERVERS.MEDBLOCKS}
             on:change={() => handleServerChange(FHIR_SERVERS.MEDBLOCKS)}
-            class="mr-2"
+            class="mr-2 accent-[#2B57AD]"
           />
-          Medblocks
+          <span class="text-[#2B57AD]">Medblocks</span>
         </label>
         <label class="flex items-center">
           <input
@@ -203,29 +205,29 @@ const handlePageChange = async (newPage: number) => {
             value={FHIR_SERVERS.HAPI}
             checked={selectedServer === FHIR_SERVERS.HAPI}
             on:change={() => handleServerChange(FHIR_SERVERS.HAPI)}
-            class="mr-2"
+            class="mr-2 accent-[#2B57AD]"
           />
-          HAPI FHIR
+          <span class="text-[#2B57AD]">HAPI FHIR</span>
         </label>
       </div>
     </div>
     {#if !patients}
-      Loading...
+      <p class="text-[#2B57AD] animate-pulse">Loading...</p>
     {:else if !patients.entry?.length}
-      <p class="text-gray-500 mt-4">No patients found.</p>
+      <p class="text-[#F57B17] mt-4">No patients found.</p>
     {:else}
-      <table class="w-full mt-4">
+      <table class="w-full mt-2">
         <thead>
-          <tr class="text-left border-b">
-            <th class="p-2">ID</th>
-            <th class="p-2">Name</th>
-            <th class="p-2">Gender</th>
-            <th class="p-2">Birth Date</th>
+          <tr class="text-left border-b-2 border-[#2B57AD]/30">
+            <th class="p-2 text-[#2B57AD] font-semibold">ID</th>
+            <th class="p-2 text-[#2B57AD] font-semibold">Name</th>
+            <th class="p-2 text-[#2B57AD] font-semibold">Gender</th>
+            <th class="p-2 text-[#2B57AD] font-semibold">Birth Date</th>
           </tr>
         </thead>
         <tbody>
           {#each patients.entry as patient}
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b border-[#2B57AD]/10 hover:bg-[#2B57AD]/5 transition-colors">
               <td class="p-2">{patient?.resource?.id}</td>
               <td class="p-2">{formatName(patient?.resource)}</td>
               <td class="p-2">{formatGender(patient?.resource?.gender)}</td>
@@ -237,8 +239,8 @@ const handlePageChange = async (newPage: number) => {
     {/if}
     <div class="mt-4">
       <button 
-        class={clsx("p-2 text-white", {
-          'bg-black': page > 0,
+        class={clsx("p-2 px-4 text-white rounded transition-colors", {
+          'bg-[#2B57AD] hover:bg-[#2B57AD]/90': page > 0,
           'bg-gray-300': page === 0
         })} 
         on:click={() => handlePageChange(page - 1)} 
@@ -246,10 +248,10 @@ const handlePageChange = async (newPage: number) => {
       >
         Previous
       </button>
-      <span class="mx-4">Page {page + 1}</span>
+      <span class="mx-4 text-[#2B57AD] font-medium">Page {page + 1}</span>
       <button 
-        class={clsx("p-2 text-white", {
-          'bg-black': (page + 1) * 20 < totalPatients,
+        class={clsx("p-2 px-4 text-white rounded transition-colors", {
+          'bg-[#2B57AD] hover:bg-[#2B57AD]/90': (page + 1) * 20 < totalPatients,
           'bg-gray-300': (page + 1) * 20 >= totalPatients
         })} 
         on:click={() => handlePageChange(page + 1)} 
@@ -259,7 +261,7 @@ const handlePageChange = async (newPage: number) => {
       </button>
     </div>
     {#if error}
-      <div class="text-red-500 mt-4">{error}</div>
+      <div class="text-[#B91F3B] mt-4 font-medium">{error}</div>
     {/if}
   </div>
 </main>
