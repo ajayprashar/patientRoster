@@ -26,7 +26,7 @@
       errors[field] = 'Name is required';
       return false;
     }
-    if (!/^[A-Z][a-z]*$/.test(name)) {
+    if (!/^[A-Z][a-zA-z]*$/.test(name)) {
       errors[field] = 'Name must start with capital letter';
       return false;
     }
