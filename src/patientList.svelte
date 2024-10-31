@@ -259,7 +259,16 @@ const handlePageChange = async (newPage: number) => {
           {#each patients.entry as patient}
             <tr class="border-b border-[#2B57AD]/10 hover:bg-[#2B57AD]/5 transition-colors">
               <td class="p-2">{patient?.resource?.id}</td>
-              <td class="p-2 pr-0">
+              <td class="p-2 flex items-center gap-2">
+                <button 
+                  class="text-[#2B57AD] hover:text-[#2B57AD]/80 transition-colors"
+                  on:click={() => navigate(`/patient/view/${patient.resource.id}`)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                  </svg>
+                </button>
                 <button 
                   class="text-[#2B57AD] hover:text-[#2B57AD]/80 transition-colors"
                   on:click={() => navigate(`/patient/edit/${patient.resource.id}`)}
@@ -269,7 +278,7 @@ const handlePageChange = async (newPage: number) => {
                   </svg>
                 </button>
               </td>
-              <td class="p-2 pl-0">{formatName(patient?.resource)}</td>
+              <td class="p-2">{formatName(patient?.resource)}</td>
               <td class="p-2">{formatGender(patient?.resource?.gender)}</td>
               <td class="p-2">{formatDate(patient?.resource?.birthDate)}</td>
             </tr>
