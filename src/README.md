@@ -6,7 +6,7 @@ A modern, responsive web application for managing patient records using FHIR (Fa
 Ajay Prashar
 
 ## Description
-This application provides a comprehensive interface for healthcare providers to manage patient records. Built with Svelte and TypeScript, it offers seamless integration with FHIR servers (Medblocks and HAPI FHIR) for robust healthcare data management.
+This application provides a comprehensive interface for healthcare providers to manage patient records. Built with Svelte and TypeScript, it offers seamless integration with FHIR servers (Medblocks and HAPI) for robust healthcare data management.
 
 ### Key Features
 - **Patient List View**: Display paginated list of patients with search capabilities
@@ -17,7 +17,7 @@ This application provides a comprehensive interface for healthcare providers to 
   - Phone numbers (formatted input)
 - **Edit Patient**: Modify existing patient records
 - **Delete Patient**: Remove patient records with confirmation
-- **Server Selection**: Toggle between Medblocks and HAPI FHIR servers
+- **Server Selection**: Toggle between Medblocks and HAPI servers
 - **Responsive Design**: Modern UI with consistent styling
 
 ## Technical Stack
@@ -56,7 +56,7 @@ The application provides three main views:
 ## API Integration
 The application integrates with three FHIR servers:
 - Medblocks: `https://fhir-bootcamp.medblocks.com/fhir`
-- HAPI FHIR: `https://hapi.fhir.org/baseR4`
+- HAPI: `https://hapi.fhir.org/baseR4`
 - Kodjin: `https://demo.kodjin.com/fhir/` (Note: Total patient count might be limited)
 
 ## License

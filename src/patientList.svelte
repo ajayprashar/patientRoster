@@ -225,7 +225,7 @@ const handlePageChange = async (newPage: number) => {
             on:change={() => handleServerChange(FHIR_SERVERS.HAPI)}
             class="mr-2 accent-[#2B57AD]"
           />
-          <span class="text-[#2B57AD]">HAPI FHIR</span>
+          <span class="text-[#2B57AD]">HAPI</span>
         </label>
         <label class="flex items-center">
           <input
