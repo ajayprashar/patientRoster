@@ -14,6 +14,7 @@ let selectedServer: string = DEFAULT_FHIR_SERVER;
 let patients: any = null;
 let error: string | null = null;
 let isLoading = false;
+let isTotalLoading = true;
 
 // Add initial load
 const initializePatients = async () => {
@@ -42,6 +43,7 @@ const fetchPatients = async (page: number) => {
   }
 
   try {
+    isTotalLoading = true;
     error = null;
     const patientResponse = await fhirApi.get('/Patient', { params });
     const patients = patientResponse.data;
@@ -53,6 +55,8 @@ const fetchPatients = async (page: number) => {
     console.error('Search error:', err);
     error = 'Failed to fetch patients. Please try again.';
     throw err;
+  } finally {
+    isTotalLoading = false;
   }
 }
 
@@ -186,7 +190,7 @@ const handlePageChange = async (newPage: number) => {
       </div>
 
       <div class="flex gap-4 items-center">
-        <span class="text-[#2B57AD] font-medium">Total Patients: {totalPatients}</span>
+        <span class="text-[#2B57AD] font-medium">Total Patients: {isTotalLoading ? 'Loading...' : totalPatients}</span>
         <label class="flex items-center">
           <input
             type="radio"
