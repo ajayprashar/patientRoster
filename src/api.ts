@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export const FHIR_SERVERS = {
   MEDBLOCKS: 'https://fhir-bootcamp.medblocks.com/fhir',
-  HAPI: 'https://hapi.fhir.org/baseR4'
+  HAPI: 'https://hapi.fhir.org/baseR4',
+  KODJIN: 'https://demo.kodjin.com/fhir/'
 } as const;
 
 // Set default server

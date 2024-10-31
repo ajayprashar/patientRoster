@@ -35,7 +35,7 @@ const fetchPatients = async (page: number) => {
     _total: 'accurate'
   };
 
-  // Always include search parameters if they exist, not just during search
+  // Add search parameters if they exist
   if (searchLastName.trim()) {
     params['name:contains'] = searchLastName.trim();
   }
@@ -48,9 +48,15 @@ const fetchPatients = async (page: number) => {
     error = null;
     const patientResponse = await fhirApi.get('/Patient', { params });
     const patients = patientResponse.data;
-    totalPatients = patients.total;
-    console.log('Search params:', params);
-    console.log('Response:', patients);
+    
+    // Handle different server responses for total
+    if (selectedServer === FHIR_SERVERS.KODJIN) {
+      // For Kodjin, if total is not available, use the entry length as fallback
+      totalPatients = patients.total || (patients.entry?.length || 0);
+    } else {
+      totalPatients = patients.total;
+    }
+
     return patients;
   } catch (err) {
     console.error('Search error:', err);
@@ -198,7 +204,7 @@ const handlePageChange = async (newPage: number) => {
       </div>
 
       <div class="flex gap-4 items-center">
-        <span class="text-[#2B57AD] font-medium">Total Patients: {isTotalLoading ? 'Loading...' : totalPatients}</span>
+        <span class="text-[#2B57AD] font-medium">Total Patients: {totalPatients}</span>
         <label class="flex items-center">
           <input
             type="radio"
@@ -220,6 +226,17 @@ const handlePageChange = async (newPage: number) => {
             class="mr-2 accent-[#2B57AD]"
           />
           <span class="text-[#2B57AD]">HAPI FHIR</span>
+        </label>
+        <label class="flex items-center">
+          <input
+            type="radio"
+            name="server"
+            value={FHIR_SERVERS.KODJIN}
+            checked={selectedServer === FHIR_SERVERS.KODJIN}
+            on:change={() => handleServerChange(FHIR_SERVERS.KODJIN)}
+            class="mr-2 accent-[#2B57AD]"
+          />
+          <span class="text-[#2B57AD]">Kodjin</span>
         </label>
       </div>
     </div>
