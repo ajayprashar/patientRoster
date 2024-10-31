@@ -15,6 +15,7 @@ let patients: any = null;
 let error: string | null = null;
 let isLoading = false;
 let isTotalLoading = true;
+let isPageLoading = false;
 
 // Add initial load
 const initializePatients = async () => {
@@ -130,8 +131,15 @@ const handleServerChange = async (newServer: string) => {
 
 // Add a page change handler
 const handlePageChange = async (newPage: number) => {
-  page = newPage;
-  patients = await fetchPatients(page);
+  try {
+    isPageLoading = true;
+    patients = await fetchPatients(newPage);
+    page = newPage;
+  } catch (error) {
+    console.error('Error changing page:', error);
+  } finally {
+    isPageLoading = false;
+  }
 };
 
 </script>
@@ -215,8 +223,8 @@ const handlePageChange = async (newPage: number) => {
         </label>
       </div>
     </div>
-    {#if !patients}
-      <p class="text-[#2B57AD] animate-pulse">Loading...</p>
+    {#if !patients || isPageLoading}
+      <p class="text-[#2B57AD] animate-pulse text-center my-4">Loading...</p>
     {:else if !patients.entry?.length}
       <p class="text-[#F57B17] mt-4">No patients found.</p>
     {:else}
@@ -259,9 +267,9 @@ const handlePageChange = async (newPage: number) => {
           'bg-gray-300': page === 0
         })} 
         on:click={() => handlePageChange(page - 1)} 
-        disabled={page === 0}
+        disabled={page === 0 || isPageLoading}
       >
-        Previous
+        {isPageLoading ? 'Loading...' : 'Previous'}
       </button>
       <span class="mx-4 text-[#2B57AD] font-medium">Page {page + 1}</span>
       <button 
@@ -270,9 +278,9 @@ const handlePageChange = async (newPage: number) => {
           'bg-gray-300': (page + 1) * 15 >= totalPatients
         })} 
         on:click={() => handlePageChange(page + 1)} 
-        disabled={(page + 1) * 15 >= totalPatients}
+        disabled={(page + 1) * 15 >= totalPatients || isPageLoading}
       >
-        Next
+        {isPageLoading ? 'Loading...' : 'Next'}
       </button>
     </div>
     {#if error}
