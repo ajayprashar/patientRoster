@@ -80,12 +80,72 @@
       </ul>
 
       <h3 class="text-lg text-[#2B57AD] mt-4">Technology Stack</h3>
-      <ul class="list-disc ml-6 mt-2">
-        <li>Built with Svelte and TypeScript</li>
-        <li>Styled with Tailwind CSS</li>
-        <li>FHIR-compliant API integration</li>
-        <li>Modern build tooling with Vite</li>
-      </ul>
+      <div class="space-y-4 ml-6 mt-2">
+        <div>
+          <h4 class="font-semibold">Svelte & TypeScript</h4>
+          <p class="text-gray-700 mt-1">
+            This patient roster application uses Svelte's reactive components to automatically update the UI when patient data changes. 
+            TypeScript ensures the FHIR patient data is properly structured, helping prevent errors when handling medical records.
+          </p>
+          <ul class="list-disc ml-6 mt-2 text-gray-700">
+            <li>Real-time search filtering in PatientList without page reloads</li>
+            <li>Form validation with immediate feedback in PatientCreate and PatientEdit</li>
+            <li>Automatic UI updates when switching between FHIR servers</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold">Tailwind CSS</h4>
+          <p class="text-gray-700 mt-1">
+            The interface implements a healthcare-focused color scheme and consistent styling across all patient management screens:
+          </p>
+          <ul class="list-disc ml-6 mt-2 text-gray-700">
+            <li>Medical-themed blue (#2B57AD) for headers and primary actions</li>
+            <li>Warning orange (#F57B17) for cancel actions and alerts</li>
+            <li>Responsive patient list that adapts to different screen sizes</li>
+            <li>Consistent padding and spacing in all patient forms</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold">FHIR API Integration</h4>
+          <p class="text-gray-700 mt-1">
+            The application connects to multiple FHIR servers, enabling users to:
+          </p>
+          <ul class="list-disc ml-6 mt-2 text-gray-700">
+            <li>Search patients by name and birth date across different FHIR servers</li>
+            <li>Create and update patient records with standardized FHIR formatting</li>
+            <li>Switch between MEDBLOCKS, HAPI, and KODJIN servers without data loss</li>
+            <li>View total patient counts across different FHIR implementations</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold">Vite Build System</h4>
+          <p class="text-gray-700 mt-1">
+            The development workflow leverages Vite for:
+          </p>
+          <ul class="list-disc ml-6 mt-2 text-gray-700">
+            <li>Instant preview of patient form changes during development</li>
+            <li>Fast compilation of Svelte components and TypeScript code</li>
+            <li>Optimized production build for quick patient data loading</li>
+            <li>Environment variable management for FHIR server configurations</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold">Additional Tools</h4>
+          <p class="text-gray-700 mt-1">
+            Essential tools that power specific features in this application:
+          </p>
+          <ul class="list-disc ml-6 mt-2 text-gray-700">
+            <li><strong>Svelte Routing:</strong> Powers navigation between patient views and forms</li>
+            <li><strong>Axios:</strong> Handles all FHIR server communications with error handling</li>
+            <li><strong>Mermaid:</strong> Creates this interactive architecture documentation</li>
+            <li><strong>ESLint:</strong> Maintains consistent code style across all patient management features</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="flex justify-end mt-6">
