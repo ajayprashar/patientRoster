@@ -35,7 +35,9 @@
     if (confirmed) {
       try {
         await fhirApi.delete(`/Patient/${id}`);
-        navigate('/');
+        sessionStorage.setItem('patientDeleted', 'true');
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        navigate('/', { replace: true });
       } catch (error) {
         console.error('Error deleting patient:', error);
         submitError = 'Failed to delete patient. Please try again.';
@@ -231,41 +233,46 @@
           </div>
 
           <div class="flex-1">
-            <label class="block text-sm text-[#2B57AD] font-medium mb-1">
-              Gender <span class="text-[#B91F3B]">*</span>
-            </label>
-            <div class="flex gap-4 mt-1">
-              <label class="inline-flex items-center text-[#2B57AD]">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="M"
-                  bind:group={patient.gender}
-                  class="mr-2 accent-[#2B57AD]"
-                />
-                Male
-              </label>
-              <label class="inline-flex items-center text-[#2B57AD]">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="F"
-                  bind:group={patient.gender}
-                  class="mr-2 accent-[#2B57AD]"
-                />
-                Female
-              </label>
-              <label class="inline-flex items-center text-[#2B57AD]">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="U"
-                  bind:group={patient.gender}
-                  class="mr-2 accent-[#2B57AD]"
-                />
-                Unknown
-              </label>
-            </div>
+            <fieldset>
+              <legend class="block text-sm text-[#2B57AD] font-medium mb-1">
+                Gender <span class="text-[#B91F3B]">*</span>
+              </legend>
+              <div class="flex gap-4 mt-1">
+                <label class="inline-flex items-center text-[#2B57AD]" for="editGenderMale">
+                  <input
+                    type="radio"
+                    id="editGenderMale"
+                    name="editGender"
+                    value="M"
+                    bind:group={patient.gender}
+                    class="mr-2 accent-[#2B57AD]"
+                  />
+                  Male
+                </label>
+                <label class="inline-flex items-center text-[#2B57AD]" for="editGenderFemale">
+                  <input
+                    type="radio"
+                    id="editGenderFemale"
+                    name="editGender"
+                    value="F"
+                    bind:group={patient.gender}
+                    class="mr-2 accent-[#2B57AD]"
+                  />
+                  Female
+                </label>
+                <label class="inline-flex items-center text-[#2B57AD]" for="editGenderUnknown">
+                  <input
+                    type="radio"
+                    id="editGenderUnknown"
+                    name="editGender"
+                    value="U"
+                    bind:group={patient.gender}
+                    class="mr-2 accent-[#2B57AD]"
+                  />
+                  Unknown
+                </label>
+              </div>
+            </fieldset>
             {#if errors.gender}
               <p class="text-[#B91F3B] text-sm mt-1">{errors.gender}</p>
             {/if}

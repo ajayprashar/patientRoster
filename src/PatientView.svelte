@@ -54,15 +54,33 @@
       <div class="space-y-4 mt-6">
         <div class="flex gap-4">
           <div class="flex-1">
-            <label class="block text-sm text-[#2B57AD] font-medium mb-1">Given Name</label>
-            <div class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded">
+            <label 
+              class="block text-sm text-[#2B57AD] font-medium mb-1"
+              id="viewGivenNameLabel"
+              for="viewGivenName"
+            >Given Name</label>
+            <div 
+              id="viewGivenName"
+              class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded"
+              role="textbox"
+              aria-readonly="true"
+            >
               {patient.givenName || 'Not provided'}
             </div>
           </div>
 
           <div class="flex-1">
-            <label class="block text-sm text-[#2B57AD] font-medium mb-1">Family Name</label>
-            <div class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded">
+            <label 
+              class="block text-sm text-[#2B57AD] font-medium mb-1"
+              id="viewFamilyNameLabel"
+              for="viewFamilyName"
+            >Family Name</label>
+            <div 
+              id="viewFamilyName"
+              class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded"
+              role="textbox"
+              aria-readonly="true"
+            >
               {patient.familyName || 'Not provided'}
             </div>
           </div>
@@ -70,15 +88,33 @@
 
         <div class="flex gap-4">
           <div class="flex-1">
-            <label class="block text-sm text-[#2B57AD] font-medium mb-1">Birth Date</label>
-            <div class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded">
+            <label 
+              class="block text-sm text-[#2B57AD] font-medium mb-1"
+              id="viewBirthDateLabel"
+              for="viewBirthDate"
+            >Birth Date</label>
+            <div 
+              id="viewBirthDate"
+              class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded"
+              role="textbox"
+              aria-readonly="true"
+            >
               {patient.birthDate || 'Not provided'}
             </div>
           </div>
 
           <div class="flex-1">
-            <label class="block text-sm text-[#2B57AD] font-medium mb-1">Gender</label>
-            <div class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded">
+            <label 
+              class="block text-sm text-[#2B57AD] font-medium mb-1"
+              id="viewGenderLabel"
+              for="viewGender"
+            >Gender</label>
+            <div 
+              id="viewGender"
+              class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded"
+              role="textbox"
+              aria-readonly="true"
+            >
               {patient.gender === 'M' ? 'Male' : 
                patient.gender === 'F' ? 'Female' : 'Unknown'}
             </div>
@@ -86,8 +122,18 @@
         </div>
 
         <div class="flex-1">
-          <label class="block text-sm text-[#2B57AD] font-medium mb-1">Phone Number</label>
-          <div class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded">
+          <label 
+            class="block text-sm text-[#2B57AD] font-medium mb-1"
+            id="viewPhoneNumberLabel"
+            for="viewPhoneNumber"
+          >Phone Number</label>
+          <div 
+            id="viewPhoneNumber"
+            class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded"
+            role="textbox"
+            aria-labelledby="viewPhoneNumberLabel"
+            aria-readonly="true"
+          >
             {patient.phone || 'Not provided'}
           </div>
         </div>

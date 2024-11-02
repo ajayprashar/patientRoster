@@ -102,15 +102,17 @@
         birthDate: patient.birthDate,
         gender: patient.gender === 'U' ? 'unknown' : 
                 patient.gender === 'M' ? 'male' : 'female',
-        telecom: [{
+        telecom: patient.phone ? [{
           system: 'phone',
           value: patient.phone.replace(/\D/g, ''),
           use: 'home'
-        }]
+        }] : undefined
       };
 
       await fhirApi.post('/Patient', fhirPatient);
-      navigate('/');
+      sessionStorage.setItem('patientCreated', 'true');
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      navigate('/', { replace: true });
     } catch (error) {
       console.error('Error creating patient:', error);
       submitError = 'Failed to create patient. Please try again.';
@@ -185,41 +187,46 @@
         </div>
 
         <div class="flex-1">
-          <label class="block text-sm text-[#2B57AD] font-medium mb-1">
-            Gender <span class="text-[#B91F3B]">*</span>
-          </label>
-          <div class="flex gap-4 mt-1">
-            <label class="inline-flex items-center text-[#2B57AD]">
-              <input
-                type="radio"
-                name="gender"
-                value="M"
-                bind:group={patient.gender}
-                class="mr-2 accent-[#2B57AD]"
-              />
-              Male
-            </label>
-            <label class="inline-flex items-center text-[#2B57AD]">
-              <input
-                type="radio"
-                name="gender"
-                value="F"
-                bind:group={patient.gender}
-                class="mr-2 accent-[#2B57AD]"
-              />
-              Female
-            </label>
-            <label class="inline-flex items-center text-[#2B57AD]">
-              <input
-                type="radio"
-                name="gender"
-                value="U"
-                bind:group={patient.gender}
-                class="mr-2 accent-[#2B57AD]"
-              />
-              Unknown
-            </label>
-          </div>
+          <fieldset>
+            <legend class="block text-sm text-[#2B57AD] font-medium mb-1">
+              Gender <span class="text-[#B91F3B]">*</span>
+            </legend>
+            <div class="flex gap-4 mt-1">
+              <label class="inline-flex items-center text-[#2B57AD]" for="createGenderMale">
+                <input
+                  type="radio"
+                  id="createGenderMale"
+                  name="gender"
+                  value="M"
+                  bind:group={patient.gender}
+                  class="mr-2 accent-[#2B57AD]"
+                />
+                Male
+              </label>
+              <label class="inline-flex items-center text-[#2B57AD]" for="createGenderFemale">
+                <input
+                  type="radio"
+                  id="createGenderFemale"
+                  name="gender"
+                  value="F"
+                  bind:group={patient.gender}
+                  class="mr-2 accent-[#2B57AD]"
+                />
+                Female
+              </label>
+              <label class="inline-flex items-center text-[#2B57AD]" for="createGenderUnknown">
+                <input
+                  type="radio"
+                  id="createGenderUnknown"
+                  name="gender"
+                  value="U"
+                  bind:group={patient.gender}
+                  class="mr-2 accent-[#2B57AD]"
+                />
+                Unknown
+              </label>
+            </div>
+          </fieldset>
           {#if errors.gender}
             <p class="text-[#B91F3B] text-sm mt-1">{errors.gender}</p>
           {/if}
@@ -227,15 +234,19 @@
       </div>
 
       <div class="flex-1">
-        <label class="block text-sm text-[#2B57AD] font-medium mb-1" for="phone">
+        <label 
+          class="block text-sm text-[#2B57AD] font-medium mb-1"
+          id="createPhoneLabel"
+          for="createPhone"
+        >
           Phone Number
         </label>
         <input
           type="tel"
-          id="phone"
+          id="createPhone"
           name="phone"
           class="mt-1 block w-full border-2 border-[#2B57AD]/20 p-2 rounded focus:border-[#2B57AD]/50 focus:outline-none"
-          placeholder="123-456-7890"
+          placeholder="Phone Number"
           bind:value={patient.phone}
           on:input={(e) => handleInput(e, 'phone')}
           on:blur={() => validatePhone(patient.phone)}
