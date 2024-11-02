@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let kolkataTime: string;
   import { fhirApi, setFhirServer, FHIR_SERVERS, DEFAULT_FHIR_SERVER } from "./api";
   import type {Patient} from "fhir/r4";
   import clsx from "clsx";
@@ -235,8 +236,9 @@ const formatNumber = (num: number): string => {
 <main>
   <div class="w-full max-w-7xl mx-auto px-8 my-10">
     <hr class="border-[#2B57AD]/50 my-2">
-    <div class="flex justify-center items-center my-1">
+    <div class="relative flex justify-center items-center my-1">
       <h1 class="text-2xl text-[#2B57AD] font-semibold">PATIENT ROSTER</h1>
+      <span class="absolute right-0 text-sm text-gray-500">{kolkataTime}</span>
     </div>
     <hr class="border-[#2B57AD]/50 my-2">
     <div class="my-4 flex gap-4 items-end justify-between">

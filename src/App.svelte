@@ -4,13 +4,32 @@
   import PatientEdit from "./PatientEdit.svelte";
   import PatientView from "./PatientView.svelte";
   import { Router, Link, Route } from "svelte-routing";
+  import { onMount } from 'svelte';
+
+  let kolkataTime = '';
+
+  const updateKolkataTime = () => {
+    const time = new Date().toLocaleTimeString('en-US', {
+      timeZone: 'Asia/Kolkata',
+      hour12: true,
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+    kolkataTime = `Kolkata: ${time}`;
+  };
+
+  onMount(() => {
+    updateKolkataTime();
+    const timer = setInterval(updateKolkataTime, 60000);
+    return () => clearInterval(timer);
+  });
 </script>
 
 <Router>
   <main>
-    <div class="w-full my-10">
+    <div class="w-full">
       <Route path="/">
-        <PatientList/>
+        <PatientList {kolkataTime}/>
       </Route>
       <Route path="/patient/create">
         <PatientCreate/>
