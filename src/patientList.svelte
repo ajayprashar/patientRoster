@@ -238,7 +238,7 @@ const formatNumber = (num: number): string => {
     <hr class="border-[#2B57AD]/50 my-2">
     <div class="relative flex justify-center items-center my-1">
       <h1 class="text-2xl text-[#2B57AD] font-semibold">PATIENT ROSTER</h1>
-      <span class="absolute right-0 text-sm text-gray-500">{kolkataTime}</span>
+      <span class="absolute right-0 text-sm text-gray-400">{kolkataTime}</span>
     </div>
     <hr class="border-[#2B57AD]/50 my-2">
     <div class="my-4 flex gap-4 items-end justify-between">

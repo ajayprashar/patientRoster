@@ -16,7 +16,7 @@
       hour: 'numeric',
       minute: '2-digit'
     });
-    kolkataTime = `Kolkata: ${time}`;
+    kolkataTime = `Kolkata Time: ${time}`;
   };
 
   onMount(() => {
