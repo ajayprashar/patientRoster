@@ -231,6 +231,34 @@ const formatNumber = (num: number): string => {
   return num.toLocaleString('en-US');
 };
 
+const calculateAge = (birthDate: string | undefined): string => {
+  if (!birthDate) return 'Unknown';
+  
+  const today = new Date();
+  const birth = new Date(birthDate);
+  
+  // Check for future dates
+  if (birth > today) return 'Unknown';
+  
+  // Calculate the time difference in milliseconds
+  let age = today.getFullYear() - birth.getFullYear();
+  
+  // Adjust age if birthday hasn't occurred this year
+  const monthDiff = today.getMonth() - birth.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  
+  // If age is 0, calculate days
+  if (age === 0) {
+    const diffTime = Math.abs(today.getTime() - birth.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return `${diffDays} days`;
+  }
+  
+  return age > 0 ? age.toString() : 'Unknown';
+}
+
 </script>
 
 <main>
@@ -327,6 +355,7 @@ const formatNumber = (num: number): string => {
             <th class="p-2 text-[#2B57AD] font-semibold">Name</th>
             <th class="p-2 text-[#2B57AD] font-semibold">Gender</th>
             <th class="p-2 text-[#2B57AD] font-semibold">Birth Date</th>
+            <th class="p-2 text-[#2B57AD] font-semibold">Age</th>
           </tr>
         </thead>
         <tbody>
@@ -357,6 +386,7 @@ const formatNumber = (num: number): string => {
               <td class="p-2">{formatName(patient?.resource)}</td>
               <td class="p-2">{formatGender(patient?.resource?.gender)}</td>
               <td class="p-2">{formatDate(patient?.resource?.birthDate)}</td>
+              <td class="p-2">{calculateAge(patient?.resource?.birthDate)}</td>
             </tr>
           {/each}
         </tbody>

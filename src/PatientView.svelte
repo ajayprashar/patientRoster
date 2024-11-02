@@ -16,6 +16,42 @@
   let isLoading = true;
   let error: string | null = null;
 
+  const calculateAge = (birthDate: string | undefined): string => {
+    if (!birthDate) return 'Unknown';
+    
+    const today = new Date();
+    const birth = new Date(birthDate);
+    
+    // Check for future dates
+    if (birth > today) return 'Unknown';
+    
+    // Calculate the time difference in milliseconds
+    let age = today.getFullYear() - birth.getFullYear();
+    
+    // Adjust age if birthday hasn't occurred this year
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    
+    // If age is 0, calculate days
+    if (age === 0) {
+      const diffTime = Math.abs(today.getTime() - birth.getTime());
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      return `${diffDays} days`;
+    }
+    
+    return age > 0 ? age.toString() : 'Unknown';
+  };
+
+  const formatDate = (dateString: string | undefined): string => {
+    if (!dateString) return 'Not provided';
+    
+    // Create a date object and format it as YYYY-MM-DD
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
   onMount(async () => {
     try {
       const response = await fhirApi.get(`/Patient/${id}`);
@@ -99,7 +135,23 @@
               role="textbox"
               aria-readonly="true"
             >
-              {patient.birthDate || 'Not provided'}
+              {formatDate(patient.birthDate)}
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <label 
+              class="block text-sm text-[#2B57AD] font-medium mb-1"
+              id="viewAgeLabel"
+              for="viewAge"
+            >Age</label>
+            <div 
+              id="viewAge"
+              class="mt-1 p-2 border-2 border-[#2B57AD]/20 rounded"
+              role="textbox"
+              aria-readonly="true"
+            >
+              {calculateAge(patient.birthDate)}
             </div>
           </div>
 
