@@ -427,7 +427,7 @@ const calculateAge = (birthDate: string | undefined): string => {
         href="/about" 
         class="about-link text-[#2B57AD] hover:text-[#2B57AD]/80"
       >
-        About Patient Roster
+        About Patient Roster (Click me Vipin!)
       </a>
     </div>
   </div>
