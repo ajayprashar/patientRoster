@@ -71,8 +71,21 @@ const fetchPatients = async (page: number) => {
       };
 
       if (searchLastName) {
-        params['family:contains'] = searchLastName;
+        switch(selectedServer) {
+          case FHIR_SERVERS.MEDBLOCKS:
+            params.family = searchLastName; // Try exact match
+            break;
+          case FHIR_SERVERS.KODJIN:
+            params.family = searchLastName;
+            break;
+          case FHIR_SERVERS.HAPI:
+            params['family:contains'] = searchLastName;
+            break;
+          default:
+            params.family = searchLastName;
+        }
       }
+      
       if (searchBirthDate) {
         params.birthdate = searchBirthDate;
       }
@@ -160,7 +173,7 @@ const fetchTotalCount = async () => {
     if (selectedServer === FHIR_SERVERS.KODJIN) {
       // For Kodjin, count the entries and check for next page
       const entries = response.data.entry?.length || 0;
-      const hasNextPage = response.data.link?.some(link => link.relation === 'next');
+      const hasNextPage = response.data.link?.some((link: { relation: string }) => link.relation === 'next');
       totalPatients = hasNextPage ? entries * 2 : entries;  // Conservative estimate
     } else {
       // For other servers, use the total from response
