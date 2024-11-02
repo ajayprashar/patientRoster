@@ -44,8 +44,11 @@
                     H --> H3[KODJIN]
                 end
                 
-                subgraph Styling["Styling System"]
-                    I[app.css] --> J[Tailwind CSS]
+                subgraph Data_Updates["Data Refresh Points"]
+                    direction TB
+                    R1["🔄 Total Patients<br/>Server Switch"]
+                    R2["🔄 Patient List<br/>Search/Reset"]
+                    R3["🔄 After Create/Edit<br/>Redirect to List"]
                 end
             end
 
@@ -54,12 +57,18 @@
             D --> G
             E --> G
 
+            R1 -.-> B
+            R2 -.-> B
+            R3 -.-> B
+
             classDef component fill:#e1f5fe,stroke:#01579b
             classDef config fill:#fff3e0,stroke:#ff6f00
             classDef api fill:#e8f5e9,stroke:#2e7d32
+            classDef refresh fill:#f3e5f5,stroke:#7b1fa2,width:200px
             
             class A,B,C,D,E component
             class G,H,H1,H2,H3 api
+            class R1,R2,R3 refresh
       </pre>
 
       <h2 class="text-xl text-[#2B57AD] mt-8 mb-4">Key Components</h2>
