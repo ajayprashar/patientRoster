@@ -392,6 +392,31 @@ const formatNumber = (num: number): string => {
     <!-- Add copyright text -->
     <div class="text-center text-[#2B57AD]/60 mt-8">
       © Not Copyrighted 2024. All rights are yours.
+      <span class="mx-2">|</span>
+      <a 
+        href="/about" 
+        class="about-link text-[#2B57AD] hover:text-[#2B57AD]/80"
+      >
+        About Patient Roster
+      </a>
     </div>
   </div>
 </main>
+
+<style>
+  .about-link {
+    animation: glow 5s ease-in-out;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      background-color: transparent;
+    }
+    50% {
+      background-color: rgba(43, 87, 173, 0.2);
+    }
+  }
+</style>

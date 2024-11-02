@@ -3,6 +3,7 @@
   import PatientCreate from "./PatientCreate.svelte";
   import PatientEdit from "./PatientEdit.svelte";
   import PatientView from "./PatientView.svelte";
+  import About from "./About.svelte";
   import { Router, Link, Route } from "svelte-routing";
   import { onMount } from 'svelte';
 
@@ -30,6 +31,9 @@
     <div class="w-full">
       <Route path="/">
         <PatientList {kolkataTime}/>
+      </Route>
+      <Route path="/about">
+        <About/>
       </Route>
       <Route path="/patient/create">
         <PatientCreate/>
