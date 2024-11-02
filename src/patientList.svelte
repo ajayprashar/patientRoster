@@ -234,7 +234,7 @@ const formatNumber = (num: number): string => {
 </script>
 
 <main>
-  <div class="w-full max-w-7xl mx-auto px-8 my-10">
+  <div class="w-full max-w-[1400px] mx-auto px-8 my-10">
     <hr class="border-[#2B57AD]/50 my-2">
     <div class="relative flex justify-center items-center my-1">
       <h1 class="text-2xl text-[#2B57AD] font-semibold">PATIENT ROSTER</h1>
