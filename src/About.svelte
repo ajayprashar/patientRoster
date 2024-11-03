@@ -13,9 +13,9 @@
   const toggleDiagram = () => {
     showDiagramModal = !showDiagramModal;
     if (showDiagramModal) {
-      // Reinitialize mermaid for the modal diagram
+      // Wait for modal to be in DOM
       setTimeout(() => {
-        mermaid.init();
+        mermaid.run();
       }, 100);
     }
     // Add keyboard event listener when modal is open
@@ -38,13 +38,19 @@
   });
 
   onMount(() => {
+    // Configure mermaid first
     mermaid.initialize({ 
-      startOnLoad: true,
+      startOnLoad: false,
       theme: 'neutral',
       flowchart: {
         curve: 'basis'
       }
     });
+
+    // Then initialize all diagrams
+    setTimeout(() => {
+      mermaid.run();
+    }, 100);
   });
 </script>
 
